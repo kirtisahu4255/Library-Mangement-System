@@ -1,12 +1,110 @@
 <!DOCTYPE html>
 {% extends "index.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block main_content %}
+<main role="main">
+    <!-- Hero Section with Fade-in Animation -->
+    <div class="jumbotron bg-light py-5">
+        <div class="container d-flex align-items-center fade-in">
+            <img src="{% static 'library (1).png' %}" alt="LIMS" class="rounded float-start" height="200" style="margin-right: 20px;">
+            <div>
+                <h1 class="display-4 fw-bold">Welcome, Readers!</h1>
+                <p class="lead">Explore a treasure trove of knowledge, inspiration, and wisdom.</p>
+                <p><a href="/collection" class="btn btn-primary btn-lg shadow">Browse Our Collection &raquo;</a></p>
+            </div>
+        </div>
+    </div>
 
-</body>
-</html>
+    <!-- Info Section with Card Layout -->
+    <div class="container my-5">
+        <div class="row text-center slide-in">
+            <!-- Why Reading is Important -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">Why is Reading Important?</h2>
+                        <p class="card-text">Reading broadens your perspective, boosts your creativity, and nurtures empathy by exposing you to new ideas and experiences.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Benefits -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">Key Benefits</h2>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Enhances creativity and imagination</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Reduces stress and improves focus</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Builds analytical thinking skills</li>
+                            <li><i class="bi bi-check-circle-fill text-success"></i> Expands vocabulary and comprehension</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thought for the Day -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">Thought for the Day</h2>
+                        <blockquote class="blockquote">
+                            <p>"A reader lives a thousand lives before he dies. The man who never reads lives only one."</p>
+                            <footer class="blockquote-footer mt-2">George R.R. Martin</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="container my-5">
+
+</main>
+
+<!-- Footer with Slide-in Animation -->
+<footer class="container text-center py-4 slide-in">
+    <p class="text-muted">&copy; Army Institute of Technology 2025 | All Rights Reserved</p>
+</footer>
+
+<!-- Custom CSS for Animations -->
+<style>
+    /* Fade-in Animation */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Slide-in Animation */
+    .slide-in {
+        opacity: 0;
+        transform: translateY(40px);
+        animation: slideIn 1.5s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Card Styling */
+    .card-title {
+        font-weight: bold;
+    }
+
+    .card-text, .blockquote {
+        font-size: 1rem;
+    }
+</style>
+{% endblock %}

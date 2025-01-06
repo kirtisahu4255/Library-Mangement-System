@@ -1,10 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "index.html" %}
+{% load static %}
+{% block main_content %}
+<div class="container-fluid text-center d-flex flex-column justify-content-center align-items-center py-5" style="background-color: #f8f9fa;">
+    <!-- Header Section -->
+    <div class="row w-100 justify-content-center mb-4">
+        <div class="col-md-4 py-3 text-light" style="background: #4B088A; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+            <h4 class="mb-0">Register New Readers</h4>
+        </div>
+        <div class="col-md-8 py-3" style="background: #e9ecef; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+            <h4 class="mb-0">Search Readers</h4>
+        </div>
+    </div>
+
+    <div class="row w-100">
+        <!-- Reader Registration Form -->
+        <div class="col-md-4 mb-4">
+            <div class="container overflow-auto p-4" style="height: 600px; background: #CEECF5; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+                <h5 class="mb-4 text-primary">Reader Registration Form</h5>
+                <form action="/readers/add" method="post">
+                    {% csrf_token %}
+                    <table class="table table-borderless">
+                        <tr>
+                            <td class="text-start">Name</td>
+                            <td><input type="text" class="form-control" name="reader_name" placeholder="Enter reader's name" required></td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Contact</td>
+                            <td><input type="text" class="form-control" name="reader_contact" placeholder="Enter contact number" required></td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Address</td>
+                            <td><textarea class="form-control" name="reader_address" rows="2" placeholder="Enter address"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Reference ID</td>
+                            <td><input type="text" class="form-control" name="reference_id" placeholder="Enter reference ID" required></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><button type="submit" class="btn btn-primary mt-2 w-100">Save</button></td>
+                        </tr>
+                    </table>
+                </form>
+                <ul class="text-start mt-4">
+                    <li>Provide your name, email, and contact details to complete the registration process.</li>
+                    <li>Ensure the contact number is correct for communication regarding your registration status.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Reader Search and List -->
+        <div class="col-md-8">
+            <!-- Search Bar -->
+            <div class="row mb-4">
+                <nav class="navbar navbar-light bg-body-light p-3 rounded shadow-sm">
+                    <div class="container-fluid">
+                        <form class="d-flex w-100" role="search" action="/readers" method="POST">
+                            {% csrf_token %}
+                            <input class="form-control me-2" type="search" placeholder="Search by name" aria-label="Search" name="query" value="{{query}}" required>
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Reader Count -->
+            <div class="row">
+                <p class="text-secondary">{{ readers|length }} readers subscribed.</p>
+            </div>
+
+            <!-- Reader List -->
+            <div class="row mt-3">
+                <div class="container overflow-auto" style="height: 400px;">
+                    <table class="table table-hover table-bordered shadow-sm">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Reader ID</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Reference ID</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reader in readers %}
+                            <tr class="table-light" onmouseover="this.style.backgroundColor='#D6EAF8';" onmouseout="this.style.backgroundColor='';">
+                                <td>{{ reader.id }}</td>
+                                <td>
+                                    {% if reader.active %}
+                                    <span class="badge bg-success">{{ reader.reader_name }}</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">{{ reader.reader_name }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ reader.reader_contact }}</td>
+                                <td>{{ reader.reference_id }}</td>
+                                <td>{{ reader.reader_address }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Subtle Animation -->
+<style>
+    h4, h5 {
+        animation: fadeInDown 1s ease;
+    }
+
+    form {
+        animation: fadeIn 1.5s ease;
+    }
+
+    table tbody tr {
+        transition: background-color 0.3s ease;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock %}

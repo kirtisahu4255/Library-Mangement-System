@@ -15,13 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from .views import *
+from django.urls import path, include
 
 urlpatterns = [
-    path('',home),
-    path('home', home),
-    path('readers',readers_tab),
-    path('save',save_student),
-    path('readers/add',save_reader),
+    path('',include('lims_app.urls')),
+    path('admin/', admin.site.urls),
 ]
